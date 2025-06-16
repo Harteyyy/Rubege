@@ -1,0 +1,80 @@
+<style>
+  .slider {
+    width: 890px;
+    overflow: hidden;
+    /* Скрываем лишние слайды */
+    position: relative;
+    margin: auto;
+  }
+
+  .slides {
+    display: flex;
+    /* Располагаем изображения горизонтально */
+    transition: transform 0.5s ease;
+    /* Анимация перехода */
+  }
+
+  .slides img {
+    width: 100%;
+    /* Ширина каждого слайда равна ширине слайдера */
+    flex-shrink: 0;
+    /* Запрещаем сжатие изображений */
+  }
+
+  .button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
+</style>
+<div class="slider">
+  <div class="slides">
+    <img src="https://sovinet.ru/upload/medialibrary/cc9/cc918dbf6b3da1a25c0e178838bd949d.jpg"> 
+    <img
+      src="https://sovinet.ru/upload/medialibrary/58c/58c54ea8da2c0db3c02c6124046b4eba.jpg">
+  </div>
+  <button class="button prev">←</button> <button class="button next">→</button>
+</div>
+<p>
+</p>
+<p>
+</p>
+<script>
+  // Получаем элементы DOM
+  const slides = document.querySelector('.slides');
+  const images = document.querySelectorAll('.slides img');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+
+  let currentSlide = 0; // Текущий слайд
+
+  // Функция переключения слайда
+  function showSlide(index) {
+    if (index < 0) {
+      currentSlide = images.length - 1; // Если меньше первого, переходим к последнему
+    } else if (index >= images.length) {
+      currentSlide = 0; // Если больше последнего, переходим к первому
+    } else {
+      currentSlide = index;
+    }
+
+    // Смещаем контейнер слайдов на нужную позицию
+    slides.style.transform = `translateX(-${currentSlide * 890}px)`;
+  }
+
+  // Обработка кликов
+  prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+  nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));</script>
